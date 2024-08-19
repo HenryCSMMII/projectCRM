@@ -1,57 +1,28 @@
 import './App.css';
 import { useState } from 'react';
+import Dado from './Dado';
 
 function App() {
 
-  function eliminarUltimaFila(){
-    if(articulos.length > 0){
-      const temp = Array.from(articulos);
-      temp.pop();
-      setArticulos(temp);
-    }
+  function generarValor(){
+    return Math.trunc(Math.random()*6);
+  }
+  function tirarDados(){
+    setValor1(generarValor());
+    setValor2(generarValor());
+    setValor3(generarValor());
   }
 
-  const [articulos, setArticulos] = useState([
-    {
-      codigo: 1,
-      descripcion: "Papas",
-      precio: 10.42
-    },
-    {
-      codigo: 2,
-      descripcion: "Naranjas",
-      precio: 11.21
-    },
-    {
-      codigo: 3,
-      descripcion: "Peras",
-      precio: 0.10
-    },
-  ]);
+  const [valor1,setValor1] = useState(0);
+  const [valor2,setValor2] = useState(0);
+  const [valor3,setValor3] = useState(0);  
 
   return (
     <div>
-      <table border="1">
-        <thead>
-          <tr>
-            <th>Código</th>
-            <th>Descripción</th>
-            <th>Precio</th>
-          </tr>
-        </thead>
-        <tbody>
-          {articulos.map(art => {
-            return (
-              <tr key = {art.codigo}>
-                <td>{art.codigo}</td>
-                <td>{art.descripcion}</td>
-                <td>{art.precio}</td>
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
-      <button onClick = {eliminarUltimaFila}>Eliminar Fila</button>
+      <Dado valor={valor1}/>
+      <Dado valor={valor2}/>
+      <Dado valor={valor3}/>
+      <button onClick={tirarDados}>Tirar dados</button>
     </div>
   );
 }
