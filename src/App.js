@@ -2,19 +2,23 @@ import './App.css';
 import { useState } from 'react';
 
 function App() {
-  function generarAleatorio(){
-    const valor = Math.trunc(Math.random() * 10);
-    setValor(valor);
+  function generarAleatorios(){
+    const vector = new Array(4);
+    for(let x = 0; x < vector.length; x++){
+      vector[x] = Math.trunc(Math.random()*10);
+    }
+    setNumeros(vector);
   }
   
-  const [numero, setValor] = useState(0);
-  //CUANDO SE COLOCA ONCLICK NO RECIBE PARÁMETRO
+  const [numeros, setNumeros] = useState([0,0,0,0]);
   return (
     <div>
-      <p>Número aleatorio: {numero}</p>
-      
-      <button onClick={generarAleatorio()}>
-        Generar valor aleatorio
+      <p>Números aleatorios:</p>
+      {numeros.map(num => (
+        <p>{num}</p>
+      ))}
+      <button onClick={generarAleatorios}>
+        Generar valores aleatorios
       </button>
     </div>
   );
