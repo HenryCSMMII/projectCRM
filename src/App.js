@@ -1,6 +1,7 @@
 import './App.css';
 import { useState } from 'react';
 import ListadoResultados from './ListadoResultados';
+import FormularioNumeros from './FormularioNumeros';
 function App() {  
   const [operaciones, setOperacion] = useState([]);
 
@@ -24,15 +25,7 @@ function App() {
 
   return (
     <div>
-      <form onSubmit={sumar}>
-        <p>Ingrese su primer valor:
-          <input type="text" name="valor1"/>
-        </p>
-        <p>Ingrese su segundo valor:
-          <input type="text" name="valor2"/>
-        </p>
-        <input type="submit" value="sumar"/>
-      </form>
+      <FormularioNumeros onSumar={sumar}/>
       <ListadoResultados resultados={operaciones}/>
     </div>
   );
