@@ -1,22 +1,29 @@
 import logo from './logo.svg';
 import './App.css';
 
-function mostrarTitulo(titulo){
-  return (
-    <h1>{titulo}</h1>
-  );
+function realizarOperacion(e){
+  e.preventDefault();
+  const valor1 = parseInt(e.target.valor1.value);
+  const valor2 = parseInt(e.target.valor2.value);
+  const suma = valor1 + valor2;
+  alert('La suma es: ' + suma);
 }
 
 function App() {
-  const buscadores = ['http://www.google.com', 'http://www.bing.com', 'http://www.yahoo.com'];
+
   return (
     <div>
-      {mostrarTitulo('Buscadores')}
-      <a href={buscadores[0]}>Google</a>
-      <br></br>
-      <a href={buscadores[1]}>Bing</a>
-      <br></br>
-      <a href={buscadores[2]}>Yahoo</a>
+      <form onSubmit={realizarOperacion}>
+        <p>Ingrese el primer valor:
+          <input type="number" name="valor1"/>
+        </p>
+        <p>Ingrese el segundo valor:
+          <input type="number" name="valor2"/>
+        </p>
+        <p>
+          <input type="submit" name="sumar"/>
+        </p>
+      </form>
     </div>
   );
 }
