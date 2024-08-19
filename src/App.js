@@ -1,42 +1,50 @@
 import './App.css';
 import { useState, useEffect } from 'react';
+import { rubros, articulos } from './datos.js';
 function App() {  
-  const [dia, setDia] = useState("Lunes");
-  const [equipo, setEquipo] = useState("Real Madrid");
+  const [rubro, setRubro] = useState(rubros[0]);
+  const [articulosRubro, setArticuloRubro] = useState(articulos.filter(articulo => articulo.codigorubro === rubro.codigo));
 
-  function cambiaDia(e){
-    setDia(e.target.value);
+  const [articulo, setArticulo] = useState(articulosRubro[0]);
+
+  function cambiarRubro(e){
+    setRubro(rubros.find(rubro => rubro.codigo === parseInt(e.target.value)));
+    const articulosRubro = articulos.filter(articulo => articulo.codigorubro == parseInt(e.target.value));
+    setArticuloRubro(articulosRubro);
+    setArticulo(articulosRubro[0]);
   }
 
-  function cambiaEquipo(e){
-    setEquipo(e.target.value);
+  function cambiarArticulo(e){
+    setArticulo(articulosRubro.find(articulo => articulo.codigo === parseInt(e.target.value)));
   }
 
   return (
-    <div>
-      <h1>Seleccionar día de la semana</h1>
-      <p>
-        <select valor={dia} onChange={cambiaDia}>
-          <option>Lunes</option>
-          <option>Martes</option>
-          <option>Miércoles</option>
-          <option>Jueves</option>
-          <option>Viernes</option>
-          <option>Sábado</option>
-          <option>Domingo</option>
+    <div className="formulario">
+      <div>
+        <select value={rubro.codigo} onChange={cambiarRubro}>
+          {rubros.map(rubro => (
+            <option key={rubro.codigo} value={rubro.codigo}>
+              {rubro.nombre}
+            </option>
+          ))}
         </select>
-      </p>
-      <p>Día seleccionado: {dia}</p>
-      <h1>Seleccionar equipo de fútbol</h1>
-      <p>
-        <input type="radio" value="Liverpool" checked={equipo == "Liverpool"} onChange={cambiaEquipo}/>
-        Liverpool
-        <input type="radio" value="Ajax" checked={equipo == "Ajax"} onChange={cambiaEquipo}/>
-        Ajax
-        <input type="radio" value="Rennes" checked={equipo == "Rennes"} onChange={cambiaEquipo}/>
-        Rennes                
-      </p>
-      <p>Equipo seleccionado: {equipo}</p>
+      </div>
+      <div>
+        <select value={articulo.codigo} onChange={cambiarArticulo}>
+          {articulosRubro.map(articulo => (
+            <option key={articulo.codigo} value={articulo.codigo}>
+              {articulo.nombre}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div>
+        <ul>
+          <li>Rubro: <strong>{rubro.nombre}</strong></li>
+          <li>Articulo: <strong>{articulo.nombre}</strong></li>
+          <li>Precio: <strong>{articulo.precio}</strong></li>
+        </ul>
+      </div>
     </div>
   );
 }
